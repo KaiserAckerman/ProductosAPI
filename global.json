@@ -1,0 +1,6 @@
+﻿{
+	"sdk": {
+		"version": "8.0.16", // Usa la versión exacta de tu SDK de .NET 8
+		"rollForward": "major"
+	}
+}
