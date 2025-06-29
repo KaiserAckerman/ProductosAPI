@@ -5,12 +5,12 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
+    var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") 
+        ?? builder.Configuration.GetConnectionString("DefaultConnection");
     builder.Services.AddDbContext<ProductosContext>(options =>
-        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+        options.UseNpgsql(connectionString));
 
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     Console.WriteLine("🔌 Usando cadena de conexión: " + connectionString);
-
 
     builder.Services.AddControllers();
 
@@ -55,7 +55,8 @@ catch (Exception ex)
     {
         Console.WriteLine($"❌ ERROR (nivel {level}): {current.GetType().FullName}: {current.Message}");
         Console.WriteLine(current.StackTrace);
+    }
         current = current.InnerException;
         level++;
-    }
 }
+
