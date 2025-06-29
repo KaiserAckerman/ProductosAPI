@@ -26,8 +26,15 @@ try
         }
         catch (Exception ex)
         {
-            Console.WriteLine("❌ Error al aplicar migraciones: " + ex.Message);
-            Console.WriteLine(ex.StackTrace);
+            Exception? current = ex;
+            int level = 0;
+            while (current != null)
+            {
+                Console.WriteLine($"❌ ERROR (nivel {level}): {current.GetType().FullName}: {current.Message}");
+                Console.WriteLine(current.StackTrace);
+                current = current.InnerException;
+                level++;
+            }
         }
     }
 
@@ -42,6 +49,13 @@ try
 }
 catch (Exception ex)
 {
-    Console.WriteLine("❌ FATAL ERROR: " + ex.Message);
-    Console.WriteLine(ex.StackTrace);
+    Exception? current = ex;
+    int level = 0;
+    while (current != null)
+    {
+        Console.WriteLine($"❌ ERROR (nivel {level}): {current.GetType().FullName}: {current.Message}");
+        Console.WriteLine(current.StackTrace);
+        current = current.InnerException;
+        level++;
+    }
 }
