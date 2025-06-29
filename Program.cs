@@ -60,8 +60,4 @@ catch (Exception ex)
         level++;
 }
 
-Console.WriteLine("DATABASE_URL: " + Environment.GetEnvironmentVariable("DATABASE_URL"));
-Console.WriteLine("PGHOST: " + Environment.GetEnvironmentVariable("PGHOST"));
-Console.WriteLine("PGUSER: " + Environment.GetEnvironmentVariable("PGUSER"));
-Console.WriteLine("PGPORT: " + Environment.GetEnvironmentVariable("PGPORT"));
-Console.WriteLine("PGDATABASE: " + Environment.GetEnvironmentVariable("PGDATABASE"));
+
