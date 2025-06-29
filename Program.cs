@@ -5,6 +5,12 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
+    Console.WriteLine("DATABASE_URL: " + Environment.GetEnvironmentVariable("DATABASE_URL"));
+    Console.WriteLine("PGHOST: " + Environment.GetEnvironmentVariable("PGHOST"));
+    Console.WriteLine("PGUSER: " + Environment.GetEnvironmentVariable("PGUSER"));
+    Console.WriteLine("PGPORT: " + Environment.GetEnvironmentVariable("PGPORT"));
+    Console.WriteLine("PGDATABASE: " + Environment.GetEnvironmentVariable("PGDATABASE"));
+
     var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") 
         ?? builder.Configuration.GetConnectionString("DefaultConnection");
     builder.Services.AddDbContext<ProductosContext>(options =>
