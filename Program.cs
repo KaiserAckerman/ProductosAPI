@@ -5,11 +5,6 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
-    Console.WriteLine("DATABASE_URL: " + Environment.GetEnvironmentVariable("DATABASE_URL"));
-    Console.WriteLine("PGHOST: " + Environment.GetEnvironmentVariable("PGHOST"));
-    Console.WriteLine("PGUSER: " + Environment.GetEnvironmentVariable("PGUSER"));
-    Console.WriteLine("PGPORT: " + Environment.GetEnvironmentVariable("PGPORT"));
-    Console.WriteLine("PGDATABASE: " + Environment.GetEnvironmentVariable("PGDATABASE"));
 
     var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") 
         ?? builder.Configuration.GetConnectionString("DefaultConnection");
@@ -44,7 +39,7 @@ try
         }
     }
 
-    var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
     app.Urls.Add($"http://*:{port}");
 
     app.UseHttpsRedirection();
@@ -52,6 +47,11 @@ try
     app.MapControllers();
 
     app.Run();
+    Console.WriteLine("DATABASE_URL: " + Environment.GetEnvironmentVariable("DATABASE_URL"));
+    Console.WriteLine("PGHOST: " + Environment.GetEnvironmentVariable("PGHOST"));
+    Console.WriteLine("PGUSER: " + Environment.GetEnvironmentVariable("PGUSER"));
+    Console.WriteLine("PGPORT: " + Environment.GetEnvironmentVariable("PGPORT"));
+    Console.WriteLine("PGDATABASE: " + Environment.GetEnvironmentVariable("PGDATABASE"));
 }
 catch (Exception ex)
 {

@@ -19,18 +19,7 @@ public class ProductosController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Producto>>> GetProductos()
     {
-        try
-        {
-            Console.WriteLine("Entrando a GetProductos");
-            var productos = await _context.Productos.ToListAsync();
-            Console.WriteLine($"Productos recuperados: {productos.Count}");
-            return Ok(productos);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"❌ Error en GetProductos: {ex.Message}");
-            return StatusCode(500, "Error interno del servidor al obtener productos.");
-        }
+        return await _context.Productos.ToListAsync();
     }
 
     [HttpGet("{id}")]
@@ -44,9 +33,6 @@ public class ProductosController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Producto>> PostProducto(Producto producto)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
         _context.Productos.Add(producto);
         await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(GetProducto), new { id = producto.Id }, producto);
